@@ -35,6 +35,12 @@ public class ExecCreateCmdImpl extends AbstrDockerCmd<ExecCreateCmd, ExecCreateC
     @JsonProperty("Cmd")
     private String[] cmd;
 
+    /**
+     * @since {@link RemoteApiVersion#VERSION_1_25}
+     */
+    @JsonProperty("Env")
+    private String[] env;
+
     public ExecCreateCmdImpl(ExecCreateCmd.Exec exec, String containerId) {
         super(exec);
         withContainerId(containerId);
@@ -84,6 +90,12 @@ public class ExecCreateCmdImpl extends AbstrDockerCmd<ExecCreateCmd, ExecCreateC
     }
 
     @Override
+    public ExecCreateCmd withEnv(String... env) {
+        this.env = env;
+        return this;
+    }    
+
+    @Override
     public String getContainerId() {
         return containerId;
     }
@@ -111,6 +123,11 @@ public class ExecCreateCmdImpl extends AbstrDockerCmd<ExecCreateCmd, ExecCreateC
     @Override
     public String getUser() {
         return user;
+    }
+
+    @Override
+    public String[] getEnv() {
+        return env;
     }
 
     /**
